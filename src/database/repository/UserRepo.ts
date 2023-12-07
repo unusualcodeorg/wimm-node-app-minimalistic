@@ -5,6 +5,8 @@ import { Types } from 'mongoose';
 import KeystoreRepo from './KeystoreRepo';
 import Keystore from '../model/Keystore';
 
+const USER_CRITICAL_DETAIL = '+email +password +roles +googleId +facebookId';
+
 async function exists(id: Types.ObjectId): Promise<boolean> {
   const user = await UserModel.exists({ _id: id, status: true });
   return user !== null && user !== undefined;
@@ -27,7 +29,7 @@ async function findPrivateProfileById(
 // contains critical information of the user
 async function findById(id: Types.ObjectId): Promise<User | null> {
   return UserModel.findOne({ _id: id, status: true })
-    .select('+email +password +roles')
+    .select(USER_CRITICAL_DETAIL)
     .populate({
       path: 'roles',
       match: { status: true },
@@ -38,13 +40,21 @@ async function findById(id: Types.ObjectId): Promise<User | null> {
 
 async function findByEmail(email: string): Promise<User | null> {
   return UserModel.findOne({ email: email })
-    .select(
-      '+email +password +roles +gender +dob +grade +country +state +city +school +bio +hobbies',
-    )
+    .select(USER_CRITICAL_DETAIL)
     .populate({
       path: 'roles',
       match: { status: true },
-      select: { code: 1 },
+    })
+    .lean()
+    .exec();
+}
+
+async function findUserByDeviceId(deviceId: string): Promise<User | null> {
+  return UserModel.findOne({ deviceId: deviceId })
+    .select(USER_CRITICAL_DETAIL)
+    .populate({
+      path: 'roles',
+      match: { status: true },
     })
     .lean()
     .exec();
@@ -115,6 +125,20 @@ async function updateInfo(user: User): Promise<any> {
     .exec();
 }
 
+async function removeDeviceId(user: User, status: boolean): Promise<User> {
+  user.updatedAt = new Date();
+  return UserModel.updateOne(
+    { _id: user._id },
+    { $unset: { deviceId: 1 }, $set: { status: status } },
+  )
+    .lean()
+    .exec()
+    .then((result) => {
+      if (!result || result.modifiedCount != 1) throw new InternalError();
+      return Promise.resolve(user);
+    });
+}
+
 export default {
   exists,
   findPrivateProfileById,
@@ -125,4 +149,6 @@ export default {
   create,
   update,
   updateInfo,
+  removeDeviceId,
+  findUserByDeviceId,
 };
