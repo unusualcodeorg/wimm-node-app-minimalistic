@@ -48,10 +48,11 @@ async function findBookmarks(user: User): Promise<Bookmark[]> {
     .exec();
 }
 
-async function removeBookmark(bookmark: Bookmark): Promise<any> {
+async function remove(bookmark: Bookmark): Promise<any> {
   return BookmarkModel.updateOne(
     { _id: bookmark._id },
     { $set: { status: false } },
+    { new: true },
   )
     .lean()
     .exec();
@@ -63,5 +64,5 @@ export default {
   update,
   findBookmark,
   findBookmarks,
-  removeBookmark,
+  remove,
 };

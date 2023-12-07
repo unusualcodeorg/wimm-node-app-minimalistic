@@ -1,6 +1,7 @@
 import Subscription, { SubscriptionModel } from '../model/Subscription';
 import { Types } from 'mongoose';
 import User from '../model/User';
+import Topic from '../model/Topic';
 
 async function findById(id: Types.ObjectId): Promise<Subscription | null> {
   return SubscriptionModel.findOne({ _id: id, status: true })
@@ -73,12 +74,12 @@ async function findSubscribedSingleMentor(
 
 async function findSubscribedSingleTopic(
   user: User,
-  topicId: Types.ObjectId,
+  topic: Topic,
 ): Promise<Subscription | null> {
   return SubscriptionModel.findOne({
     user: user._id,
     status: true,
-    topics: topicId,
+    topics: topic._id,
   })
     .select('-status -mentors -topics -user')
     .lean()

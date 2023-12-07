@@ -94,6 +94,18 @@ async function findRecommendedTopicsPaginated(
     .exec();
 }
 
+async function remove(topic: Topic): Promise<Topic | null> {
+  topic.updatedAt = new Date();
+  topic.status = false;
+  return TopicModel.findByIdAndUpdate(
+    topic._id,
+    { $set: { status: false } },
+    { new: true },
+  )
+    .lean()
+    .exec();
+}
+
 export default {
   findById,
   create,
@@ -104,4 +116,5 @@ export default {
   searchLike,
   findRecommendedTopics,
   findRecommendedTopicsPaginated,
+  remove,
 };
