@@ -1,7 +1,6 @@
 import Subscription, { SubscriptionModel } from '../model/Subscription';
 import { Types } from 'mongoose';
 import User from '../model/User';
-import Topic from '../model/Topic';
 
 async function findById(id: Types.ObjectId): Promise<Subscription | null> {
   return SubscriptionModel.findOne({ _id: id, status: true })
@@ -36,8 +35,24 @@ async function findSubscriptionForUser(
   user: User,
 ): Promise<Subscription | null> {
   return SubscriptionModel.findOne({ user: user._id, status: true })
-    .populate('topics')
-    .populate('mentors')
+    .lean()
+    .exec();
+}
+
+async function findSubscriptionForUserPopulated(
+  user: User,
+): Promise<Subscription | null> {
+  return SubscriptionModel.findOne({ user: user._id, status: true })
+    .populate({
+      path: 'mentors',
+      match: { status: true },
+      select: 'name thumbnail occupation title coverImgUrl',
+    })
+    .populate({
+      path: 'topics',
+      match: { status: true },
+      select: 'name thumbnail title coverImgUrl',
+    })
     .lean()
     .exec();
 }
@@ -58,41 +73,12 @@ async function findSubscribedTopics(user: User): Promise<Subscription | null> {
     .exec();
 }
 
-async function findSubscribedSingleMentor(
-  user: User,
-  mentorId: Types.ObjectId,
-): Promise<Subscription | null> {
-  return SubscriptionModel.findOne({
-    user: user._id,
-    status: true,
-    mentors: mentorId,
-  })
-    .select('-status -mentors -topics -user')
-    .lean()
-    .exec();
-}
-
-async function findSubscribedSingleTopic(
-  user: User,
-  topic: Topic,
-): Promise<Subscription | null> {
-  return SubscriptionModel.findOne({
-    user: user._id,
-    status: true,
-    topics: topic._id,
-  })
-    .select('-status -mentors -topics -user')
-    .lean()
-    .exec();
-}
-
 export default {
   findById,
   create,
   update,
   findSubscriptionForUser,
+  findSubscriptionForUserPopulated,
   findSubscribedMentors,
   findSubscribedTopics,
-  findSubscribedSingleMentor,
-  findSubscribedSingleTopic,
 };

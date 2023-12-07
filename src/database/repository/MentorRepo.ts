@@ -95,6 +95,18 @@ async function findRecommendedMentorsPaginated(
     .exec();
 }
 
+async function remove(topic: Mentor): Promise<Mentor | null> {
+  topic.updatedAt = new Date();
+  topic.status = false;
+  return MentorModel.findByIdAndUpdate(
+    topic._id,
+    { $set: { status: false } },
+    { new: true },
+  )
+    .lean()
+    .exec();
+}
+
 export default {
   findById,
   create,
@@ -105,4 +117,5 @@ export default {
   searchLike,
   findRecommendedMentors,
   findRecommendedMentorsPaginated,
+  remove,
 };

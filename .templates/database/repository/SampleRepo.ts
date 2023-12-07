@@ -20,8 +20,21 @@ async function update(sample: Sample): Promise<Sample | null> {
     .exec();
 }
 
+async function remove(sample: Sample): Promise<Sample | null> {
+  sample.updatedAt = new Date();
+  sample.status = false;
+  return SampleModel.findByIdAndUpdate(
+    sample._id,
+    { $set: { status: false } },
+    { new: true },
+  )
+    .lean()
+    .exec();
+}
+
 export default {
   findById,
   create,
   update,
+  remove,
 };

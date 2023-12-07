@@ -22,6 +22,7 @@ const schema = new Schema<Subscription>(
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'User',
+      unique: true,
       index: true,
     },
     topics: [
