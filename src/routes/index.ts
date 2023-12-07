@@ -9,6 +9,8 @@ import credential from './access/credential';
 import contact from './contact'
 import topic from './topic'
 import topics from './topics'
+import mentor from './mentor';
+import mentors from './mentors';
 
 const router = express.Router();
 
@@ -25,5 +27,7 @@ router.use('/credential', credential);
 router.use('/contact', contact);
 router.use('/topic', topic);
 router.use('/topics', topics);
+router.use('/mentor', mentor);
+router.use('/mentors', mentors);
 
 export default router;
