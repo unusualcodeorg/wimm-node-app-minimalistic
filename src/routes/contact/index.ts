@@ -14,7 +14,7 @@ import Message from '../../database/model/Message';
 const router = express.Router();
 
 //----------------------------------------------------------------
-router.use(authentication, role(RoleCode.LEARNER), authorization);
+router.use(authentication, role(RoleCode.VIEWER), authorization);
 //----------------------------------------------------------------
 
 router.post(
