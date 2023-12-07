@@ -8,8 +8,8 @@ export default interface Message {
   _id: Types.ObjectId;
   type: string;
   user: User;
-  deviceId: string;
   message: string;
+  deviceId?: string;
   receivedAt?: Date;
 }
 
@@ -24,12 +24,12 @@ const schema = new Schema<Message>(
       ref: 'User',
       required: true,
     },
-    deviceId: {
-      type: Schema.Types.String,
-    },
     message: {
       type: Schema.Types.String,
       required: true,
+    },
+    deviceId: {
+      type: Schema.Types.String,
     },
     receivedAt: {
       type: Schema.Types.Date,
