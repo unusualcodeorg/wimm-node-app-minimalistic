@@ -7,9 +7,16 @@ export const COLLECTION_NAME = 'users';
 export default interface User {
   _id: Types.ObjectId;
   name?: string;
-  profilePicUrl?: string;
   email?: string;
+  deviceId?: string;
   password?: string;
+  firebaseToken?: string;
+  googleId?: string;
+  facebookId?: string;
+  profilePicUrl?: string;
+  googleProfilePicUrl?: string;
+  facebookProfilePicUrl?: string;
+  tagline?: string;
   roles: Role[];
   verified?: boolean;
   status?: boolean;
@@ -24,10 +31,6 @@ const schema = new Schema<User>(
       trim: true,
       maxlength: 200,
     },
-    profilePicUrl: {
-      type: Schema.Types.String,
-      trim: true,
-    },
     email: {
       type: Schema.Types.String,
       unique: true,
@@ -35,9 +38,47 @@ const schema = new Schema<User>(
       trim: true,
       select: false,
     },
+    deviceId: {
+      type: Schema.Types.String,
+      unique: true,
+      required: true,
+      sparse: true,
+      trim: true,
+    },
     password: {
       type: Schema.Types.String,
       select: false,
+    },
+    firebaseToken: {
+      type: Schema.Types.String,
+      select: false,
+      trim: true,
+    },
+    googleId: {
+      type: Schema.Types.String,
+      select: false,
+      trim: true,
+    },
+    facebookId: {
+      type: Schema.Types.String,
+      select: false,
+      trim: true,
+    },
+    profilePicUrl: {
+      type: Schema.Types.String,
+      trim: true,
+    },
+    googleProfilePicUrl: {
+      type: Schema.Types.String,
+      trim: true,
+    },
+    facebookProfilePicUrl: {
+      type: Schema.Types.String,
+      trim: true,
+    },
+    tagline: {
+      type: Schema.Types.String,
+      trim: true,
     },
     roles: {
       type: [
