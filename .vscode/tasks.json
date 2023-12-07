@@ -30,7 +30,7 @@
       "script": "run watch"
     },
     {
-      "label": "Template: Generate V1 Route",
+      "label": "Template: Generate Route",
       "type": "shell",
       "command": "cp",
       "presentation": {
