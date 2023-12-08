@@ -16,8 +16,11 @@ import TopicRepo from '../../database/repository/TopicRepo';
 import SubscriptionRepo from '../../database/repository/SubscriptionRepo';
 import Content from '../../database/model/Content';
 import { statsBoostUp } from '../content/utils';
+import personal from './personal';
 
 const router = express.Router();
+
+router.use('/my', personal);
 
 /*----------------------------------------------------------------*/
 router.use(authentication, role(RoleCode.VIEWER), authorization);

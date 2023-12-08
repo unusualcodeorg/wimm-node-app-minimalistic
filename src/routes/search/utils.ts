@@ -73,7 +73,7 @@ function convertMentorToResult(mentor: Mentor) {
   return {
     id: mentor._id,
     title: mentor.name,
-    contentType: Category.MENTOR_INFO,
+    category: Category.MENTOR_INFO,
     thumbnail: mentor.thumbnail,
     extra: mentor.occupation,
   } as UniversalSearchResult;
@@ -83,7 +83,7 @@ function convertTopicToResult(topic: Topic) {
   return {
     id: topic._id,
     title: topic.name,
-    contentType: Category.TOPIC_INFO,
+    category: Category.TOPIC_INFO,
     thumbnail: topic.thumbnail,
     extra: topic.title,
   } as UniversalSearchResult;
@@ -93,7 +93,7 @@ function convertContentToResult(content: Content): UniversalSearchResult {
   return {
     id: content._id,
     title: content.title,
-    contentType: content.category,
+    category: content.category,
     thumbnail: content.thumbnail,
     extra: content.extra,
   } as UniversalSearchResult;

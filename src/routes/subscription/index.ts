@@ -83,7 +83,7 @@ router.get(
 
     const data: SubscriptionInfo = {
       itemId: mentorId,
-      contentType: Category.MENTOR_INFO,
+      category: Category.MENTOR_INFO,
       subscribed: exits,
     };
 
@@ -103,7 +103,7 @@ router.get(
 
     const data: SubscriptionInfo = {
       itemId: topicId,
-      contentType: Category.TOPIC_INFO,
+      category: Category.TOPIC_INFO,
       subscribed: exits,
     };
 

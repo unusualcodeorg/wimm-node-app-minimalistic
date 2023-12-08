@@ -230,11 +230,11 @@ async function findSubscriptionContentsPaginated(
 }
 
 async function findUserContentsPaginated(
-  userId: Types.ObjectId,
+  user: User,
   pageNumber: number,
   limit: number,
 ): Promise<Content[]> {
-  return ContentModel.find({ createdBy: userId, status: true })
+  return ContentModel.find({ createdBy: user, status: true })
     .select('-status -private')
     .populate({
       path: 'createdBy',
@@ -249,7 +249,7 @@ async function findUserContentsPaginated(
 }
 
 async function findUserBoxContentPaginated(
-  userId: Types.ObjectId,
+  user: User,
   bookmarkedContentIds: Types.ObjectId[],
   pageNumber: number,
   limit: number,
@@ -258,7 +258,7 @@ async function findUserBoxContentPaginated(
     .and([
       { status: true },
       {
-        $or: [{ createdBy: userId }, { _id: { $in: bookmarkedContentIds } }],
+        $or: [{ createdBy: user }, { _id: { $in: bookmarkedContentIds } }],
       },
     ])
     .select('-status +submit')

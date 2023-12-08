@@ -3,14 +3,14 @@ import { Category as ContentCategory } from '../database/model/Content';
 
 declare type SubscriptionInfo = {
   itemId: Types.ObjectId;
-  contentType: ContentCategory;
+  category: ContentCategory;
   subscribed: boolean;
 };
 
 declare type UniversalSearchResult = {
   id: Types.ObjectId;
   title: string;
-  contentType: ContentCategory;
+  category: ContentCategory;
   thumbnail: string;
   extra: string;
 };

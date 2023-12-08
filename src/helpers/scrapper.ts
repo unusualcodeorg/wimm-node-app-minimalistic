@@ -24,7 +24,7 @@ const scraper = metascraper([
 ]);
 
 export interface MetaContent {
-  contentType: string;
+  category: string;
   title?: string;
   subtitle?: string;
   description?: string;
@@ -40,7 +40,7 @@ export async function scrapMetadata(url: string) {
   });
 
   const data: MetaContent = {
-    contentType: Category.ARTICLE,
+    category: Category.ARTICLE,
     title: metadata.title,
     subtitle: metadata.author,
     description: metadata.description,
@@ -53,7 +53,7 @@ export async function scrapMetadata(url: string) {
     url.includes('https://youtu.be') ||
     url.includes('https://www.youtube.com/watch')
   ){
-    data.contentType = Category.YOUTUBE;
+    data.category = Category.YOUTUBE;
   }
 
   if (!data.subtitle) data.subtitle = metadata.publisher;
