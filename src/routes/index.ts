@@ -12,6 +12,7 @@ import topics from './topics'
 import mentor from './mentor';
 import mentors from './mentors';
 import storage from './storage';
+import profile from './profile';
 
 const router = express.Router();
 
@@ -31,5 +32,6 @@ router.use('/topics', topics);
 router.use('/mentor', mentor);
 router.use('/mentors', mentors);
 router.use('/storage', storage);
+router.use('/profile', profile);
 
 export default router;
