@@ -35,7 +35,7 @@ async function findTopicsPaginated(
     .exec();
 }
 
-async function findByIds(ids: [Types.ObjectId]): Promise<Topic[]> {
+async function findByIds(ids: Types.ObjectId[]): Promise<Topic[]> {
   return TopicModel.find()
     .where('_id')
     .in(ids)

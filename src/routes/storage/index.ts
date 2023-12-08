@@ -10,6 +10,7 @@ import authorization from '../../auth/authorization';
 import { RoleCode } from '../../database/model/Role';
 import Storage from '../../database/model/Storage';
 import StorageRepo from '../../database/repository/StorageRepo';
+import { Journal, Mood } from '../../types/model-types';
 
 const router = express.Router();
 
