@@ -1,5 +1,4 @@
-import { Types } from 'mongoose';
-import { Category as ContentCategory } from '../database/model/Content';
+import {} from './client-types'; // TODO: remove it after any other import. Done only for types import via link
 
 declare type Mood = {
   id: number;
@@ -11,10 +10,4 @@ declare type Journal = {
   id: number;
   text: string;
   createdAt: Date;
-};
-
-declare type SubscriptionInfo = {
-  itemId: Types.ObjectId;
-  contentType: ContentCategory;
-  subscribed: boolean;
 };

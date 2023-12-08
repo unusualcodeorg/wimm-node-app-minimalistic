@@ -22,23 +22,20 @@ router.post(
   '/moods',
   validator(schema.moods, ValidationSource.BODY),
   asyncHandler(async (req: ProtectedRequest, res) => {
-    
-    const storages = req.body.moods.map(
-      (mood: Mood) =>{
-        const storage = {
-          id: mood.id,
-          data1: 'MOOD',
-          data2: mood.code,
-          createdBy: req.user,
-          updatedBy: req.user,
-          createdAt: new Date(mood.createdAt),
-          updatedAt: new Date(),
-        } as Storage;
-        return storage
-      }
-    );
+    const storages = req.body.moods.map((mood: Mood) => {
+      const storage = {
+        id: mood.id,
+        data1: 'MOOD',
+        data2: mood.code,
+        createdBy: req.user,
+        updatedBy: req.user,
+        createdAt: new Date(mood.createdAt),
+        updatedAt: new Date(),
+      } as Storage;
+      return storage;
+    });
 
-    await StorageRepo.insertMany(storages)
+    await StorageRepo.insertMany(storages);
     new SuccessMsgResponse('Moods stored successfully').send(res);
   }),
 );

@@ -1,9 +1,15 @@
 import metascraper from 'metascraper';
+//@ts-ignore
 import author from 'metascraper-author';
+//@ts-ignore
 import description from 'metascraper-description';
+//@ts-ignore
 import image from 'metascraper-image';
+//@ts-ignore
 import title from 'metascraper-title';
+//@ts-ignore
 import youtube from 'metascraper-youtube';
+//@ts-ignore
 import publisher from 'metascraper-publisher';
 import axios from 'axios';
 import { Category } from '../database/model/Content';

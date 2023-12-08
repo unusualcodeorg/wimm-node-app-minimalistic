@@ -12,7 +12,7 @@ import processSubscription from './processor';
 import SubscriptionRepo from '../../database/repository/SubscriptionRepo';
 import { NotFoundError } from '../../core/ApiError';
 import { Types } from 'mongoose';
-import { SubscriptionInfo } from '../../types/model-types';
+import { SubscriptionInfo } from '../../types/client-types';
 import { Category } from '../../database/model/Content';
 import MentorRepo from '../../database/repository/MentorRepo';
 import TopicRepo from '../../database/repository/TopicRepo';
