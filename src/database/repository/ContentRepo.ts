@@ -1,7 +1,9 @@
-import Content, { Category, ContentModel } from '../model/Content';
+import Content, { ContentModel } from '../model/Content';
 import { Types } from 'mongoose';
 import Subscription from '../model/Subscription';
 import User from '../model/User';
+import Topic from '../model/Topic';
+import Mentor from '../model/Mentor';
 
 async function findById(id: Types.ObjectId): Promise<Content | null> {
   return ContentModel.findOne({ _id: id, status: true }).lean().exec();
@@ -87,12 +89,12 @@ async function findContentsPaginated(
 }
 
 async function findMentorContentsPaginated(
-  mentorId: Types.ObjectId,
+  mentor: Mentor,
   pageNumber: number,
   limit: number,
 ): Promise<Content[]> {
   return ContentModel.find({
-    mentors: mentorId,
+    mentors: mentor,
     status: true,
     private: { $ne: true },
   })
@@ -110,12 +112,12 @@ async function findMentorContentsPaginated(
 }
 
 async function findTopicContentsPaginated(
-  topicId: Types.ObjectId,
+  topic: Topic,
   pageNumber: number,
   limit: number,
 ): Promise<Content[]> {
   return ContentModel.find({
-    topics: topicId,
+    topics: topic,
     status: true,
     private: { $ne: true },
   })
@@ -169,8 +171,7 @@ async function searchLike(query: string, limit: number): Promise<Content[]> {
 }
 
 async function searchSimilar(
-  contentId: Types.ObjectId,
-  cetegory: Category,
+  content: Content,
   query: string,
   limit: number,
 ): Promise<Content[]> {
@@ -179,8 +180,8 @@ async function searchSimilar(
       $text: { $search: query, $caseSensitive: false },
       status: true,
       private: { $ne: true },
-      cetegory: cetegory,
-      _id: { $ne: contentId },
+      cetegory: content.category,
+      _id: { $ne: content._id },
     },
     {
       similarity: { $meta: 'textScore' },
@@ -331,9 +332,9 @@ async function findUserAndContentsLike(
 
 async function findUserAndContentLike(
   user: User,
-  contentId: Types.ObjectId,
+  content: Content,
 ): Promise<Content | null> {
-  return ContentModel.findOne({ status: true, likedBy: user, _id: contentId })
+  return ContentModel.findOne({ status: true, likedBy: user, _id: content._id })
     .select('-status -private')
     .lean()
     .exec();
