@@ -13,6 +13,7 @@ import mentor from './mentor';
 import mentors from './mentors';
 import storage from './storage';
 import profile from './profile';
+import metascrap from './metascrap';
 
 const router = express.Router();
 
@@ -33,5 +34,6 @@ router.use('/mentor', mentor);
 router.use('/mentors', mentors);
 router.use('/storage', storage);
 router.use('/profile', profile);
+router.use('/meta', metascrap);
 
 export default router;
