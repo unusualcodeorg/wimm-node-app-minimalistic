@@ -8,6 +8,9 @@ import role from '../../helpers/role';
 import authentication from '../../auth/authentication';
 import authorization from '../../auth/authorization';
 import { RoleCode } from '../../database/model/Role';
+import { Category } from '../../database/model/Content';
+import { UniversalSearchResult } from '../../types/client-types';
+import { search, searchMentors, searchTopics } from './utils';
 
 const router = express.Router();
 
@@ -15,11 +18,28 @@ const router = express.Router();
 router.use(authentication, role(RoleCode.VIEWER), authorization);
 /*----------------------------------------------------------------*/
 
-router.post(
-  '/sample',
-  validator(schema.sample, ValidationSource.BODY),
+router.get(
+  '/',
+  validator(schema.searchKey, ValidationSource.BODY),
   asyncHandler(async (req: ProtectedRequest, res) => {
-    new SuccessResponse('Success', {}).send(res);
+    const query = req.query.query as string;
+    let data: UniversalSearchResult[] = [];
+    if (req.query.filter) {
+      switch (req.query.filter as string) {
+        case Category.MENTOR_INFO: {
+          data = await searchMentors(query);
+          break;
+        }
+        case Category.TOPIC_INFO: {
+          data = await searchTopics(query);
+          break;
+        }
+      }
+    } else {
+      data = await search(query);
+    }
+
+    new SuccessResponse('Success', data).send(res);
   }),
 );
 

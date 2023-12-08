@@ -1,7 +1,11 @@
 import Joi from 'joi';
+import { Category } from '../../database/model/Content';
 
 export default {
-  sample: Joi.object().keys({
-    key: Joi.string().required().min(1),
+  searchKey: Joi.object().keys({
+    query: Joi.string().required().min(1).max(300),
+    filter: Joi.string()
+      .valid(...Object.values(Category))
+      .optional(),
   }),
 };
