@@ -139,6 +139,15 @@ async function removeDeviceId(user: User, status: boolean): Promise<User> {
     });
 }
 
+async function findFieldsByIds(
+  ids: Types.ObjectId[],
+  ...fields: string[]
+): Promise<User[]> {
+  return UserModel.find({ _id: { $in: ids }, status: true }, [...fields])
+    .lean()
+    .exec();
+}
+
 export default {
   exists,
   findPrivateProfileById,
@@ -151,4 +160,5 @@ export default {
   updateInfo,
   removeDeviceId,
   findUserByDeviceId,
+  findFieldsByIds,
 };

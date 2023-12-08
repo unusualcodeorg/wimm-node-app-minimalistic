@@ -10,7 +10,7 @@ export default interface User {
   email?: string;
   deviceId?: string;
   password?: string;
-  firebaseToken?: string;
+  firebaseFcmToken?: string;
   googleId?: string;
   facebookId?: string;
   profilePicUrl?: string;
@@ -49,7 +49,7 @@ const schema = new Schema<User>(
       type: Schema.Types.String,
       select: false,
     },
-    firebaseToken: {
+    firebaseFcmToken: {
       type: Schema.Types.String,
       select: false,
       trim: true,

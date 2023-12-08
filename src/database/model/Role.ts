@@ -6,6 +6,7 @@ export const COLLECTION_NAME = 'roles';
 export enum RoleCode {
   VIEWER = 'VIEWER',
   ADMIN = 'ADMIN',
+  MANAGER = 'MANAGER',
 }
 
 export default interface Role {

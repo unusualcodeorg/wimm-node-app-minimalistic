@@ -26,7 +26,6 @@ router.put(
     if (req.body.name) userinfo.name = req.body.name;
     if (req.body.profilePicUrl) userinfo.profilePicUrl = req.body.profilePicUrl;
     if (req.body.tagline) userinfo.tagline = req.body.tagline;
-    if (req.body.firebaseToken) userinfo.firebaseToken = req.body.firebaseToken;
 
     await UserRepo.updateInfo(userinfo);
 

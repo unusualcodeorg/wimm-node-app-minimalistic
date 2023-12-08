@@ -35,3 +35,12 @@ export const caching = {
     process.env.CONTENT_CACHE_DURATION_MILLIS || '600000',
   ),
 };
+
+export const firebase = {
+  dbUrl: process.env.FIREBASE_DB_URL || '',
+};
+
+export const notifSetting = {
+  dryrun: process.env.NOTIFICATION_DRY_RUN === 'true',
+  viewsInterval: parseInt(process.env.NOTIFICATION_VIEWS_INTERVAL || '0'),
+};
