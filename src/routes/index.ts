@@ -11,6 +11,8 @@ import topic from './topic'
 import topics from './topics'
 import mentor from './mentor';
 import mentors from './mentors';
+import content from './content';
+import contents from './contents';
 import storage from './storage';
 import profile from './profile';
 import metascrap from './metascrap';
@@ -32,6 +34,8 @@ router.use('/topic', topic);
 router.use('/topics', topics);
 router.use('/mentor', mentor);
 router.use('/mentors', mentors);
+router.use('/content', content);
+router.use('/contents', contents);
 router.use('/storage', storage);
 router.use('/profile', profile);
 router.use('/meta', metascrap);
