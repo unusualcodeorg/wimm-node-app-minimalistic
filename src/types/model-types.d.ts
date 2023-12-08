@@ -15,6 +15,6 @@ declare type Journal = {
 
 declare type SubscriptionInfo = {
   itemId: Types.ObjectId;
-  contentCategory: ContentCategory;
+  contentType: ContentCategory;
   subscribed: boolean;
 };

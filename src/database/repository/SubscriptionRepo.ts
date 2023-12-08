@@ -34,7 +34,7 @@ async function update(
 async function findSubscriptionForUser(
   user: User,
 ): Promise<Subscription | null> {
-  return SubscriptionModel.findOne({ user: user._id, status: true })
+  return SubscriptionModel.findOne({ user: user, status: true })
     .lean()
     .exec();
 }
@@ -42,7 +42,7 @@ async function findSubscriptionForUser(
 async function findSubscriptionForUserPopulated(
   user: User,
 ): Promise<Subscription | null> {
-  return SubscriptionModel.findOne({ user: user._id, status: true })
+  return SubscriptionModel.findOne({ user: user, status: true })
     .populate({
       path: 'mentors',
       match: { status: true },
@@ -58,7 +58,7 @@ async function findSubscriptionForUserPopulated(
 }
 
 async function findSubscribedMentors(user: User): Promise<Subscription | null> {
-  return SubscriptionModel.findOne({ user: user._id, status: true })
+  return SubscriptionModel.findOne({ user: user, status: true })
     .select('-status -topics -user')
     .populate('mentors', 'name thumbnail occupation title coverImgUrl')
     .lean()
@@ -66,11 +66,35 @@ async function findSubscribedMentors(user: User): Promise<Subscription | null> {
 }
 
 async function findSubscribedTopics(user: User): Promise<Subscription | null> {
-  return SubscriptionModel.findOne({ user: user._id, status: true })
+  return SubscriptionModel.findOne({ user: user, status: true })
     .select('-status -mentors -user')
     .populate('topics', 'name thumbnail title coverImgUrl')
     .lean()
     .exec();
+}
+
+async function mentorSubscriptionExists(
+  user: User,
+  mentorId: Types.ObjectId,
+): Promise<boolean> {
+  const subscription = await SubscriptionModel.exists({
+    user: user,
+    mentors: mentorId,
+    status: true,
+  });
+  return subscription !== null && subscription !== undefined;
+}
+
+async function topicSubscriptionExists(
+  user: User,
+  topicId: Types.ObjectId,
+): Promise<boolean> {
+  const subscription = await SubscriptionModel.exists({
+    user: user,
+    topics: topicId,
+    status: true,
+  });
+  return subscription !== null && subscription !== undefined;
 }
 
 export default {
@@ -81,4 +105,6 @@ export default {
   findSubscriptionForUserPopulated,
   findSubscribedMentors,
   findSubscribedTopics,
+  mentorSubscriptionExists,
+  topicSubscriptionExists,
 };

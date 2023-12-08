@@ -36,9 +36,7 @@ async function findMentorsPaginated(
 }
 
 async function findByIds(ids: Types.ObjectId[]): Promise<Mentor[]> {
-  return MentorModel.find()
-    .where('_id')
-    .in(ids)
+  return MentorModel.find({ _id: { $in: ids }, status: true })
     .select(INFO_PARAMETERS)
     .lean()
     .exec();

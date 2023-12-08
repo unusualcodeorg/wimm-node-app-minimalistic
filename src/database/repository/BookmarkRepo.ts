@@ -31,8 +31,8 @@ async function findBookmark(
   content: Content,
 ): Promise<Bookmark | null> {
   return BookmarkModel.findOne({
-    user: user._id,
-    content: content._id,
+    user: user,
+    content: content,
     status: true,
   })
     .populate('user', 'status')
@@ -42,7 +42,7 @@ async function findBookmark(
 }
 
 async function findBookmarks(user: User): Promise<Bookmark[]> {
-  return BookmarkModel.find({ user: user._id, status: true })
+  return BookmarkModel.find({ user: user, status: true })
     .sort({ createdAt: -1 })
     .lean()
     .exec();
