@@ -9,4 +9,8 @@ export default {
     mentorIds: Joi.array().optional().items(JoiObjectId().required()),
     topicIds: Joi.array().optional().items(JoiObjectId().required()),
   }),
+  pagination: Joi.object().keys({
+    pageNumber: Joi.number().required().integer().min(1),
+    pageItemCount: Joi.number().required().integer().min(1),
+  }),
 };

@@ -60,7 +60,11 @@ async function findSubscriptionForUserPopulated(
 async function findSubscribedMentors(user: User): Promise<Subscription | null> {
   return SubscriptionModel.findOne({ user: user, status: true })
     .select('-status -topics -user')
-    .populate('mentors', 'name thumbnail occupation title coverImgUrl')
+    .populate({
+      path: 'mentors',
+      match: { status: true },
+      select: 'name thumbnail occupation title coverImgUrl',
+    })
     .lean()
     .exec();
 }
@@ -68,7 +72,11 @@ async function findSubscribedMentors(user: User): Promise<Subscription | null> {
 async function findSubscribedTopics(user: User): Promise<Subscription | null> {
   return SubscriptionModel.findOne({ user: user, status: true })
     .select('-status -mentors -user')
-    .populate('topics', 'name thumbnail title coverImgUrl')
+    .populate({
+      path: 'topics',
+      match: { status: true },
+      select: 'name thumbnail title coverImgUrl',
+    })
     .lean()
     .exec();
 }

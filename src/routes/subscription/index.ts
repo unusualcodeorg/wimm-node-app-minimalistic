@@ -14,6 +14,8 @@ import { NotFoundError } from '../../core/ApiError';
 import { Types } from 'mongoose';
 import { SubscriptionInfo } from '../../types/model-types';
 import { Category } from '../../database/model/Content';
+import MentorRepo from '../../database/repository/MentorRepo';
+import TopicRepo from '../../database/repository/TopicRepo';
 
 const router = express.Router();
 
@@ -104,6 +106,54 @@ router.get(
       contentType: Category.TOPIC_INFO,
       subscribed: exits,
     };
+
+    new SuccessResponse('Success', data).send(res);
+  }),
+);
+
+router.get(
+  '/recommendation/mentors',
+  validator(schema.pagination, ValidationSource.QUERY),
+  asyncHandler(async (req: ProtectedRequest, res) => {
+    const mentors = await MentorRepo.findRecommendedMentorsPaginated(
+      parseInt(req.query.pageNumber as string),
+      parseInt(req.query.pageItemCount as string),
+    );
+
+    const data = mentors.map((m) => ({ ...m, subscribed: false }));
+
+    const subscription = await SubscriptionRepo.findSubscribedMentors(req.user);
+
+    if (subscription) {
+      for (const entry of data) {
+        const found = subscription.mentors.find((m) => m._id.equals(entry._id));
+        if (found) entry.subscribed = true;
+      }
+    }
+
+    new SuccessResponse('Success', data).send(res);
+  }),
+);
+
+router.get(
+  '/recommendation/topics',
+  validator(schema.pagination, ValidationSource.QUERY),
+  asyncHandler(async (req: ProtectedRequest, res) => {
+    const topics = await TopicRepo.findRecommendedTopicsPaginated(
+      parseInt(req.query.pageNumber as string),
+      parseInt(req.query.pageItemCount as string),
+    );
+
+    const data = topics.map((t) => ({ ...t, subscribed: false }));
+
+    const subscription = await SubscriptionRepo.findSubscribedTopics(req.user);
+
+    if (subscription) {
+      for (const entry of data) {
+        const found = subscription.topics.find((m) => m._id.equals(entry._id));
+        if (found) entry.subscribed = true;
+      }
+    }
 
     new SuccessResponse('Success', data).send(res);
   }),
