@@ -121,7 +121,7 @@ router.delete(
       status: false,
     } as Content);
 
-    new SuccessMsgResponse('Content submitted successfully').send(res);
+    new SuccessMsgResponse('Content deleted successfully').send(res);
   }),
 );
 

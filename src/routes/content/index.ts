@@ -12,14 +12,16 @@ import ContentRepo from '../../database/repository/ContentRepo';
 import { Types } from 'mongoose';
 import { NotFoundError } from '../../core/ApiError';
 import { statsBoostUp } from './utils';
+import Content from '../../database/model/Content';
 import bookmark from './bookmark';
 import personal from './personal';
-import Content from '../../database/model/Content';
+import admin from './admin';
 
 const router = express.Router();
 
 router.use('/bookmark', bookmark);
 router.use('/private', personal);
+router.use('/admin', admin);
 
 /*----------------------------------------------------------------*/
 router.use(authentication, role(RoleCode.VIEWER), authorization);
