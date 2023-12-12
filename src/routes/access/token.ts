@@ -59,11 +59,7 @@ router.post(
       refreshTokenKey,
     );
 
-    new TokenRefreshResponse(
-      'Token Issued',
-      tokens.accessToken,
-      tokens.refreshToken,
-    ).send(res);
+    new TokenRefreshResponse('Token Issued', tokens).send(res);
   }),
 );
 
