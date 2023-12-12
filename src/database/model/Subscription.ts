@@ -26,16 +26,16 @@ const schema = new Schema<Subscription>(
       index: true,
     },
     topics: [
-      new Schema({
+      {
         type: Schema.Types.ObjectId,
         ref: 'Topic',
-      }),
+      },
     ],
     mentors: [
-      new Schema({
+      {
         type: Schema.Types.ObjectId,
         ref: 'Mentor',
-      }),
+      },
     ],
     status: {
       type: Schema.Types.Boolean,

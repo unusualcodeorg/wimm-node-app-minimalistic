@@ -83,30 +83,30 @@ const schema = new Schema<Content>(
     },
     topics: {
       type: [
-        new Schema({
+        {
           type: Schema.Types.ObjectId,
           ref: 'Topic',
-        }),
+        },
       ],
       select: false,
       index: true,
     },
     mentors: {
       type: [
-        new Schema({
+        {
           type: Schema.Types.ObjectId,
           ref: 'Mentor',
-        }),
+        },
       ],
       select: false,
       index: true,
     },
     likedBy: {
       type: [
-        new Schema({
+        {
           type: Schema.Types.ObjectId,
           ref: 'User',
-        }),
+        },
       ],
       select: false,
       index: true,
