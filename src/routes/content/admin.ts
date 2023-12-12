@@ -35,7 +35,7 @@ router.get(
 
 router.post(
   '/',
-  validator(schema.contentAdminCreate, ValidationSource.PARAM),
+  validator(schema.contentAdminCreate, ValidationSource.BODY),
   asyncHandler(async (req: ProtectedRequest, res) => {
     const content = {
       title: req.body.title,

@@ -21,7 +21,7 @@ router.put(
   '/',
   validator(schema.profile, ValidationSource.BODY),
   asyncHandler(async (req: ProtectedRequest, res) => {
-    const userinfo = {} as User;
+    const userinfo = { _id: req.user._id } as User;
 
     if (req.body.name) userinfo.name = req.body.name;
     if (req.body.profilePicUrl) userinfo.profilePicUrl = req.body.profilePicUrl;
