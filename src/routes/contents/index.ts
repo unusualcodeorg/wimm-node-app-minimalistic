@@ -27,14 +27,6 @@ router.use(authentication, role(RoleCode.VIEWER), authorization);
 /*----------------------------------------------------------------*/
 
 router.get(
-  '/rotated',
-  asyncHandler(async (req: ProtectedRequest, res) => {
-    // TODO
-    new SuccessResponse('Success', {}).send(res);
-  }),
-);
-
-router.get(
   '/mentor/:id',
   validator(schema.id, ValidationSource.PARAM),
   validator(schema.pagination, ValidationSource.QUERY),
