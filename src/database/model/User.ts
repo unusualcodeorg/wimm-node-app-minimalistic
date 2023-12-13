@@ -34,15 +34,11 @@ const schema = new Schema<User>(
     email: {
       type: Schema.Types.String,
       unique: true,
-      sparse: true, // allows null
       trim: true,
       select: false,
     },
     deviceId: {
       type: Schema.Types.String,
-      unique: true,
-      required: true,
-      sparse: true,
       trim: true,
     },
     password: {
