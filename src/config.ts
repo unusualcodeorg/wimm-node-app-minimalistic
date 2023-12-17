@@ -44,3 +44,7 @@ export const notifSetting = {
   dryrun: process.env.NOTIFICATION_DRY_RUN === 'true',
   viewsInterval: parseInt(process.env.NOTIFICATION_VIEWS_INTERVAL || '0'),
 };
+
+export const disk = {
+  path: process.env.DISK_STORAGE_PATH || 'disk1',
+};

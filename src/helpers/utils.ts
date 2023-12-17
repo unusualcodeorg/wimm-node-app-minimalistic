@@ -2,6 +2,18 @@ import { Request } from 'express';
 import moment from 'moment';
 import Logger from '../core/Logger';
 
+export function findReqProtocol(req: Request) {
+  // @ts-ignore
+  let proto = req?.socket?.encrypted ? 'https' : 'http';
+  // only do this if you trust the proxy
+  proto = req.headers['x-forwarded-proto']?.toString() || proto;
+  return proto.split(/\s*,\s*/)[0];
+}
+
+export function getBaseUrl(req: Request) {
+  return `${findReqProtocol(req)}://${req.get('host')}`;
+}
+
 export function findIpAddress(req: Request) {
   try {
     if (req.headers['x-forwarded-for']) {

@@ -17,6 +17,7 @@ import subscription from './subscription';
 import storage from './storage';
 import profile from './profile';
 import metascrap from './metascrap';
+import assets from './assets';
 
 const router = express.Router();
 
@@ -41,5 +42,6 @@ router.use('/subscription', subscription);
 router.use('/storage', storage);
 router.use('/profile', profile);
 router.use('/meta', metascrap);
+router.use('/assets', assets);
 
 export default router;
