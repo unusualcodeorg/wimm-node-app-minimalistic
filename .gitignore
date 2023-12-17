@@ -37,4 +37,5 @@ temp
 *.save
 *.save.*
 
-disk
+disk/*
+!disk/.gitkeep
