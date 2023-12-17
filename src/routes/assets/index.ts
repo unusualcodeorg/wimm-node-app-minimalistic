@@ -10,6 +10,7 @@ import { RoleCode } from '../../database/model/Role';
 import admin from './admin';
 import { NotFoundError } from '../../core/ApiError';
 import { checkFile } from '../../helpers/disk';
+import { FileResponse } from '../../core/ApiResponse';
 
 const router = express.Router();
 
@@ -25,7 +26,7 @@ router.get(
   asyncHandler(async (req: ProtectedRequest, res) => {
     const { exists, filepath } = checkFile(req.params.image);
     if (!exists) throw new NotFoundError('Image does not exist');
-    res.sendFile(filepath);
+    new FileResponse(filepath).send(res);
   }),
 );
 

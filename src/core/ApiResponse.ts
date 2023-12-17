@@ -138,3 +138,14 @@ export class TokenRefreshResponse extends ApiResponse {
     return super.prepare<TokenRefreshResponse>(res, this, headers);
   }
 }
+
+export class FileResponse {
+  constructor(
+    private filepath: string,
+    private cacheDuration: number = 31536000, // 1 year
+  ) {}
+  public send(res: Response) {
+    res.set('Cache-Control', `private, max-age=${this.cacheDuration}`);
+    res.sendFile(this.filepath);
+  }
+}
