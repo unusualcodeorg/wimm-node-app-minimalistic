@@ -64,7 +64,7 @@ router.get(
 
 router.get(
   '/rotated',
-  validator(schema.rotatedPagination, ValidationSource.PARAM),
+  validator(schema.rotatedPagination, ValidationSource.QUERY),
   asyncHandler(async (req: ProtectedRequest, res) => {
     const subscription = await SubscriptionRepo.findSubscriptionForUser(
       req.user,
