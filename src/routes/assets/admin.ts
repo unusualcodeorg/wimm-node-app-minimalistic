@@ -8,7 +8,7 @@ import authorization from '../../auth/authorization';
 import { RoleCode } from '../../database/model/Role';
 import { BadRequestError, InternalError } from '../../core/ApiError';
 import { getBaseUrl } from '../../helpers/utils';
-import { uploadImage } from '../../helpers/uploader';
+import { uploadImage } from '../../helpers/disk';
 
 const router = express.Router();
 
@@ -32,7 +32,7 @@ router.post(
         if (!req.file) throw new InternalError('Something went wrong');
 
         new SuccessResponse('Image upload success', {
-          url: `${getBaseUrl(req)}/v1/assets/product/${req.file?.filename}`,
+          url: `${getBaseUrl(req)}/assets/image/${req.file?.filename}`,
         }).send(res);
       } catch (err) {
         next(err);

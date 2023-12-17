@@ -1,6 +1,7 @@
 import path from 'path';
 import { disk } from '../config';
 import multer from 'multer';
+import { existsSync } from 'fs';
 
 const diskPath = path.resolve(__dirname, '../..', disk.path);
 
@@ -56,4 +57,13 @@ function getFilename(file: Express.Multer.File) {
   fileName = `${fileName}_${Date.now()}.${extension}`;
 
   return fileName;
+}
+
+export function checkFile(filename: string) {
+  const filepath = path.join(diskPath, filename);
+  const exists = existsSync(filepath);
+  return {
+    exists: exists,
+    filepath: filepath,
+  };
 }

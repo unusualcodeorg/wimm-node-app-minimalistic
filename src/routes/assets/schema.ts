@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 export default {
-  asset: Joi.object().keys({
-    'content-type': Joi.string().required(),
+  image: Joi.object().keys({
+    image: Joi.string().required(),
   }),
 };
