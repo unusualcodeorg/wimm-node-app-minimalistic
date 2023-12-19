@@ -10,7 +10,7 @@ export default {
     pageItemCount: Joi.number().required().integer().min(1),
   }),
   rotatedPagination: Joi.object().keys({
-    empty: Joi.boolean().required(),
+    empty: Joi.boolean().optional(),
     pageNumber: Joi.number().required().integer().min(1),
     pageItemCount: Joi.number().required().integer().min(1),
   }),

@@ -71,46 +71,35 @@ router.get(
     );
     if (!subscription) throw new BadRequestError('Subscription not found');
 
-    const empty = req.query.empty as string;
     const pageNumber = parseInt(req.query.pageNumber as string);
     const pageItemCount = parseInt(req.query.pageItemCount as string);
+    const empty = req.query.empty === 'true';
 
-    let latestContents: Content[] = [];
+    const data: Content[] = [];
 
-    if (
-      (empty == 'true' && pageNumber !== 1) ||
-      (empty == 'false' && pageNumber === 1)
-    ) {
-      latestContents = await ContentRepo.findSubscriptionContentsPaginated(
-        subscription,
-        1,
-        5,
-      );
+    if (empty == true || pageNumber == 1) {
+      const latestContents =
+        await ContentRepo.findSubscriptionContentsPaginated(
+          subscription,
+          pageNumber,
+          pageItemCount,
+        );
+      data.push(...latestContents);
     }
 
-    const contents = await ContentRepo.findSubscriptionContentsPaginated(
-      subscription,
+    const contents = await ContentRepo.findContentsPaginated(
       pageNumber,
       pageItemCount,
     );
 
-    const data: Content[] = [];
-
-    if (empty == 'false' && pageNumber === 1) {
-      for (const content of contents) {
-        const found = latestContents.find((latest) =>
-          content._id.equals(latest._id),
-        );
-        if (!found) data.push(content);
-      }
-    } else {
-      data.push(...latestContents);
-      data.push(...contents);
+    for (const content of contents) {
+      const found = data.find((c) => c._id.equals(content._id));
+      if (!found) data.push(content);
     }
 
     const likedContents = await ContentRepo.findUserAndContentsLike(
       req.user,
-      contents.map((content) => content._id),
+      data.map((content) => content._id),
     );
 
     for (const content of data) {
