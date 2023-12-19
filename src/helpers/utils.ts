@@ -31,3 +31,7 @@ export function findIpAddress(req: Request) {
 export function addMillisToCurrentDate(millis: number) {
   return moment().add(millis, 'ms').toDate();
 }
+
+export function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
