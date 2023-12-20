@@ -309,7 +309,7 @@ async function removeLikeForUser(
 ): Promise<Content | null> {
   return ContentModel.findByIdAndUpdate(
     content._id,
-    { $pull: { likedBy: user }, likes: likes },
+    { $pull: { likedBy: user._id }, likes: likes },
     { new: true },
   )
     .lean()
