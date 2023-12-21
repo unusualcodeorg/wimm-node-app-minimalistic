@@ -87,6 +87,8 @@ router.post(
     );
     if (!content) throw new NotFoundError('Content do not exists');
 
+    if (!content.views) content.views = 0;
+
     await ContentRepo.update({
       _id: content._id,
       views: content.views + 1,
@@ -109,6 +111,9 @@ router.post(
       req.user,
       content,
     );
+
+    if (!content.likes) content.likes = 0;
+
     if (!likedContent) {
       await ContentRepo.addLikeForUser(content, req.user, content.likes + 1);
     }
@@ -130,6 +135,7 @@ router.post(
       req.user,
       content,
     );
+
     if (likedContent) {
       await ContentRepo.removeLikeForUser(content, req.user, content.likes - 1);
     }
