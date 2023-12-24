@@ -20,7 +20,7 @@ router.use(authentication, role(RoleCode.VIEWER), authorization);
 
 router.get(
   '/',
-  validator(schema.searchKey, ValidationSource.BODY),
+  validator(schema.searchKey, ValidationSource.QUERY),
   asyncHandler(async (req: ProtectedRequest, res) => {
     const query = req.query.query as string;
     let data: UniversalSearchResult[] = [];

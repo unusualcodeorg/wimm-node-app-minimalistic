@@ -18,6 +18,7 @@ import storage from './storage';
 import profile from './profile';
 import metascrap from './metascrap';
 import assets from './assets';
+import search from './search';
 
 const router = express.Router();
 
@@ -43,5 +44,6 @@ router.use('/storage', storage);
 router.use('/profile', profile);
 router.use('/meta', metascrap);
 router.use('/assets', assets);
+router.use('/search', search);
 
 export default router;
