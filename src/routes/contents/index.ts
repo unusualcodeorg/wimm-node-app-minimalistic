@@ -27,6 +27,40 @@ router.use(authentication, role(RoleCode.VIEWER), authorization);
 /*----------------------------------------------------------------*/
 
 router.get(
+  '/content/:id/similar',
+  validator(schema.id, ValidationSource.PARAM),
+  validator(schema.pagination, ValidationSource.QUERY),
+  asyncHandler(async (req: ProtectedRequest, res) => {
+    const content = await ContentRepo.findPublicInfoById(
+      new Types.ObjectId(req.params.id),
+    );
+    if (!content) throw new NotFoundError('Content Not Found');
+
+    const contents = await ContentRepo.searchSimilar(
+      content,
+      `${content.title} ${content.subtitle}`,
+      parseInt(req.query.pageNumber as string),
+      parseInt(req.query.pageItemCount as string),
+    );
+
+    if (contents.length > 0) {
+      const likedContents = await ContentRepo.findUserAndContentsLike(
+        req.user,
+        contents.map((c) => c._id),
+      );
+
+      for (const cnt of contents) {
+        const found = likedContents.find((c) => c._id.equals(cnt._id));
+        cnt.liked = found ? true : false;
+        statsBoostUp(cnt);
+      }
+    }
+
+    new SuccessResponse('Success', contents).send(res);
+  }),
+);
+
+router.get(
   '/mentor/:id',
   validator(schema.id, ValidationSource.PARAM),
   validator(schema.pagination, ValidationSource.QUERY),

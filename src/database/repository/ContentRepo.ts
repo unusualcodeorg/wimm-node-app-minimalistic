@@ -173,6 +173,7 @@ async function searchLike(query: string, limit: number): Promise<Content[]> {
 async function searchSimilar(
   content: Content,
   query: string,
+  pageNumber: number,
   limit: number,
 ): Promise<Content[]> {
   return ContentModel.find(
@@ -193,8 +194,9 @@ async function searchSimilar(
       match: { status: true },
       select: '_id name profilePicUrl',
     })
-    .limit(limit)
     .sort({ similarity: { $meta: 'textScore' } })
+    .skip(limit * (pageNumber - 1))
+    .limit(limit)
     .lean()
     .exec();
 }
