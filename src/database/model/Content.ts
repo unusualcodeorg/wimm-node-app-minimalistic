@@ -178,6 +178,11 @@ const schema = new Schema<Content>(
   },
 );
 
+schema.index(
+  { title: 'text', subtitle: 'text' },
+  { weights: { title: 3, subtitle: 1 }, background: false },
+);
+
 export const ContentModel = model<Content>(
   DOCUMENT_NAME,
   schema,

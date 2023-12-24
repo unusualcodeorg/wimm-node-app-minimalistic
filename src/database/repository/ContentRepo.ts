@@ -181,7 +181,7 @@ async function searchSimilar(
       $text: { $search: query, $caseSensitive: false },
       status: true,
       private: { $ne: true },
-      cetegory: content.category,
+      category: content.category,
       _id: { $ne: content._id },
     },
     {
