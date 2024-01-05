@@ -17,10 +17,11 @@ import SubscriptionRepo from '../../database/repository/SubscriptionRepo';
 import Content from '../../database/model/Content';
 import { statsBoostUp } from '../content/utils';
 import personal from './personal';
+import notfound from '../notfound';
 
 const router = express.Router();
 
-router.use('/my', personal);
+router.use('/my', personal, notfound);
 
 /*----------------------------------------------------------------*/
 router.use(authentication, role(RoleCode.VIEWER), authorization);

@@ -16,12 +16,13 @@ import Content from '../../database/model/Content';
 import bookmark from './bookmark';
 import personal from './personal';
 import admin from './admin';
+import notfound from '../notfound';
 
 const router = express.Router();
 
-router.use('/bookmark', bookmark);
-router.use('/private', personal);
-router.use('/admin', admin);
+router.use('/bookmark', bookmark, notfound);
+router.use('/private', personal, notfound);
+router.use('/admin', admin, notfound);
 
 /*----------------------------------------------------------------*/
 router.use(authentication, role(RoleCode.VIEWER), authorization);

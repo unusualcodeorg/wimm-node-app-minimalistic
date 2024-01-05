@@ -13,11 +13,12 @@ import admin from './admin';
 import role from '../../helpers/role';
 import { RoleCode } from '../../database/model/Role';
 import authorization from '../../auth/authorization';
+import notfound from '../notfound';
 
 const router = express.Router();
 
-router.use('/send', manager);
-router.use('/admin', admin);
+router.use('/send', manager, notfound);
+router.use('/admin', admin, notfound);
 
 //----------------------------------------------------------------
 router.use(authentication, role(RoleCode.VIEWER), authorization);
