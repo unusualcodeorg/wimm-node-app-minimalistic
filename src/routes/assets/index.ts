@@ -11,10 +11,11 @@ import admin from './admin';
 import { NotFoundError } from '../../core/ApiError';
 import { checkFile } from '../../helpers/disk';
 import { FileResponse } from '../../core/ApiResponse';
+import notfound from '../notfound';
 
 const router = express.Router();
 
-router.use('/admin', admin);
+router.use('/admin', admin, notfound);
 
 /*----------------------------------------------------------------*/
 router.use(authentication, role(RoleCode.VIEWER), authorization);
