@@ -46,5 +46,5 @@ export const notifSetting = {
 };
 
 export const disk = {
-  path: process.env.DISK_STORAGE_PATH || 'disk1',
+  path: process.env.DISK_STORAGE_PATH || 'disk',
 };
