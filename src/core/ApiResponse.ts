@@ -2,10 +2,10 @@ import { Response } from 'express';
 
 // Helper code for the API consumer to understand the error and handle is accordingly
 enum StatusCode {
-  SUCCESS = '10000',
-  FAILURE = '10001',
-  RETRY = '10002',
-  INVALID_ACCESS_TOKEN = '10003',
+  SUCCESS = 10000,
+  FAILURE = 10001,
+  RETRY = 10002,
+  INVALID_ACCESS_TOKEN = 10003,
 }
 
 enum ResponseStatus {
