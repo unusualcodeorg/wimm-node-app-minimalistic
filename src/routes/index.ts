@@ -28,10 +28,10 @@ router.use(apikey);
 /*---------------------------------------------------------*/
 router.use(permission(Permission.GENERAL));
 /*---------------------------------------------------------*/
-router.use('/login', login);
-router.use('/logout', logout);
-router.use('/token', token);
-router.use('/credential', credential);
+router.use('/auth/login', login);
+router.use('/auth/logout', logout);
+router.use('/auth/token', token);
+router.use('/auth/credential', credential);
 router.use('/contact', contact);
 router.use('/topic', topic);
 router.use('/topics', topics);
