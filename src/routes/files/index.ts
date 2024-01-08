@@ -15,7 +15,7 @@ import notfound from '../notfound';
 
 const router = express.Router();
 
-router.use('/admin', admin, notfound);
+router.use('/upload', admin, notfound);
 
 /*----------------------------------------------------------------*/
 router.use(authentication, role(RoleCode.VIEWER), authorization);
