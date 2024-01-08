@@ -32,7 +32,7 @@ router.post(
         if (!req.file) throw new InternalError('Something went wrong');
 
         new SuccessResponse('Image upload success', {
-          url: `${getBaseUrl(req)}/assets/image/${req.file?.filename}`,
+          url: `${getBaseUrl(req)}/files/image/${req.file?.filename}`,
         }).send(res);
       } catch (err) {
         next(err);
