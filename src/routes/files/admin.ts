@@ -17,7 +17,7 @@ router.use(authentication, role(RoleCode.ADMIN), authorization);
 /*----------------------------------------------------------------*/
 
 router.post(
-  '/public/image',
+  '/image',
   asyncHandler(async (req: ProtectedRequest, res, next) => {
     const header = req.headers['content-type'];
     if (!header || !header.includes('multipart/form-data'))
