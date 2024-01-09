@@ -30,11 +30,10 @@ router.post(
 
     await KeystoreRepo.create(user, accessTokenKey, refreshTokenKey);
     const tokens = await createTokens(user, accessTokenKey, refreshTokenKey);
-    const { roles, ...userData } = await getUserData(user);
+    const { ...userData } = await getUserData(user);
 
     new SuccessResponse('Login Success', {
       user: userData,
-      roles: roles,
       tokens: tokens,
     }).send(res);
   }),
