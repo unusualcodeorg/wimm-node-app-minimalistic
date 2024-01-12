@@ -11,7 +11,7 @@ import { RoleCode } from '../../database/model/Role';
 import ContentRepo from '../../database/repository/ContentRepo';
 import { Types } from 'mongoose';
 import MentorRepo from '../../database/repository/MentorRepo';
-import { BadRequestError, NotFoundError } from '../../core/ApiError';
+import { NotFoundError } from '../../core/ApiError';
 import TopicRepo from '../../database/repository/TopicRepo';
 import SubscriptionRepo from '../../database/repository/SubscriptionRepo';
 import Content from '../../database/model/Content';
