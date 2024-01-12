@@ -23,46 +23,6 @@ const router = express.Router();
 router.use(authentication, role(RoleCode.VIEWER), authorization);
 /*----------------------------------------------------------------*/
 
-router.get(
-  '/topic/id/:id',
-  validator(schema.id, ValidationSource.PARAM),
-  asyncHandler(async (req: ProtectedRequest, res) => {
-    const topic = await TopicRepo.findById(new Types.ObjectId(req.params.id));
-    if (!topic) throw new NotFoundError('Topic not found');
-
-    const subscription = await SubscriptionRepo.findSubscriptionForUser(
-      req.user,
-    );
-
-    const subscribedTopic = subscription?.topics.find((t) =>
-      topic._id.equals(t._id),
-    );
-
-    const data = { ...topic, subscribed: subscribedTopic !== undefined };
-    new SuccessResponse('Success', data).send(res);
-  }),
-);
-
-router.get(
-  '/mentor/id/:id',
-  validator(schema.id, ValidationSource.PARAM),
-  asyncHandler(async (req: ProtectedRequest, res) => {
-    const mentor = await MentorRepo.findById(new Types.ObjectId(req.params.id));
-    if (!mentor) throw new NotFoundError('Mentor not found');
-
-    const subscription = await SubscriptionRepo.findSubscriptionForUser(
-      req.user,
-    );
-
-    const subscribedTopic = subscription?.topics.find((m) =>
-      mentor._id.equals(m._id),
-    );
-
-    const data = { ...mentor, subscribed: subscribedTopic !== undefined };
-    new SuccessResponse('Success', data).send(res);
-  }),
-);
-
 router.post(
   '/subscribe',
   validator(schema.subscribe, ValidationSource.BODY),
