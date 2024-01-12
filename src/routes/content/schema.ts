@@ -7,7 +7,7 @@ export default {
     id: JoiObjectId().required(),
   }),
   contentId: Joi.object().keys({
-    contentId: JoiObjectId().required(),
+    id: JoiObjectId().required(),
   }),
   contentCreate: Joi.object().keys({
     category: Joi.string()
