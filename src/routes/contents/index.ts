@@ -101,25 +101,25 @@ router.get(
   '/rotated',
   validator(schema.rotatedPagination, ValidationSource.QUERY),
   asyncHandler(async (req: ProtectedRequest, res) => {
-    const subscription = await SubscriptionRepo.findSubscriptionForUser(
-      req.user,
-    );
-    if (!subscription) throw new BadRequestError('Subscription not found');
-
     const pageNumber = parseInt(req.query.pageNumber as string);
     const pageItemCount = parseInt(req.query.pageItemCount as string);
     const empty = req.query.empty === 'true';
 
     const data: Content[] = [];
 
-    if (empty == true || pageNumber == 1) {
-      const latestContents =
-        await ContentRepo.findSubscriptionContentsPaginated(
-          subscription,
-          pageNumber,
-          pageItemCount,
-        );
-      data.push(...latestContents);
+    const subscription = await SubscriptionRepo.findSubscriptionForUser(
+      req.user,
+    );
+    if (subscription) {
+      if (empty == true || pageNumber == 1) {
+        const latestContents =
+          await ContentRepo.findSubscriptionContentsPaginated(
+            subscription,
+            pageNumber,
+            pageItemCount,
+          );
+        data.push(...latestContents);
+      }
     }
 
     const contents = await ContentRepo.findContentsPaginated(
