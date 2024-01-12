@@ -105,7 +105,7 @@ router.put(
 );
 
 router.delete(
-  '/:id',
+  '/id/:id',
   validator(schema.contentId, ValidationSource.PARAM),
   asyncHandler(async (req: ProtectedRequest, res) => {
     const content = await ContentRepo.findById(
