@@ -10,7 +10,6 @@ import authorization from '../../auth/authorization';
 import { RoleCode } from '../../database/model/Role';
 import { Types } from 'mongoose';
 import { NotFoundError } from '../../core/ApiError';
-import SubscriptionRepo from '../../database/repository/SubscriptionRepo';
 import admin from './admin';
 import MentorRepo from '../../database/repository/MentorRepo';
 import notfound from '../notfound';
@@ -29,18 +28,7 @@ router.get(
   asyncHandler(async (req: ProtectedRequest, res) => {
     const mentor = await MentorRepo.findById(new Types.ObjectId(req.params.id));
     if (!mentor) throw new NotFoundError('Mentor not found');
-
-    const subscription = await SubscriptionRepo.findSubscriptionForUser(
-      req.user,
-    );
-
-    // TODO: check if the m._id exists
-    const subscribedTopic = subscription?.topics.find((m) =>
-      mentor._id.equals(m._id),
-    );
-
-    const data = { ...mentor, subscribed: subscribedTopic !== undefined };
-    new SuccessResponse('Success', data).send(res);
+    new SuccessResponse('Success', mentor).send(res);
   }),
 );
 

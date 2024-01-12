@@ -11,7 +11,6 @@ import { RoleCode } from '../../database/model/Role';
 import TopicRepo from '../../database/repository/TopicRepo';
 import { Types } from 'mongoose';
 import { NotFoundError } from '../../core/ApiError';
-import SubscriptionRepo from '../../database/repository/SubscriptionRepo';
 import admin from './admin';
 import notfound from '../notfound';
 
@@ -29,16 +28,7 @@ router.get(
   asyncHandler(async (req: ProtectedRequest, res) => {
     const topic = await TopicRepo.findById(new Types.ObjectId(req.params.id));
     if (!topic) throw new NotFoundError('Topic not found');
-    
-    const subscription = await SubscriptionRepo.findSubscriptionForUser(
-      req.user,
-    );
-
-    // TODO: check if the t._id exists
-    const subscribedTopic = subscription?.topics.find(t => topic._id.equals(t._id));
-
-    const data = { ...topic, subscribed: subscribedTopic !== undefined };
-    new SuccessResponse('Success', data).send(res);
+    new SuccessResponse('Success', topic).send(res);
   }),
 );
 
