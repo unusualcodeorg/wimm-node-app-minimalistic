@@ -52,7 +52,7 @@ router.post(
   validator(schema.contentId, ValidationSource.BODY),
   asyncHandler(async (req: ProtectedRequest, res) => {
     const content = await ContentRepo.findById(
-      new Types.ObjectId(req.body.contentId),
+      new Types.ObjectId(req.body.id),
     );
     if (!content) throw new NotFoundError('Content do not exists');
 
@@ -72,7 +72,7 @@ router.post(
   validator(schema.contentId, ValidationSource.BODY),
   asyncHandler(async (req: ProtectedRequest, res) => {
     const content = await ContentRepo.findById(
-      new Types.ObjectId(req.body.contentId),
+      new Types.ObjectId(req.body.id),
     );
     if (!content) throw new NotFoundError('Content do not exists');
 
@@ -96,7 +96,7 @@ router.post(
   validator(schema.contentId, ValidationSource.BODY),
   asyncHandler(async (req: ProtectedRequest, res) => {
     const content = await ContentRepo.findById(
-      new Types.ObjectId(req.body.contentId),
+      new Types.ObjectId(req.body.id),
     );
     if (!content) throw new NotFoundError('Content do not exists');
 
@@ -118,7 +118,7 @@ router.post(
   validator(schema.contentId, ValidationSource.BODY),
   asyncHandler(async (req: ProtectedRequest, res) => {
     const content = await ContentRepo.findById(
-      new Types.ObjectId(req.body.contentId),
+      new Types.ObjectId(req.body.id),
     );
     if (!content) throw new NotFoundError('Content do not exists');
 
