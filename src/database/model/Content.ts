@@ -128,7 +128,7 @@ const schema = new Schema<Content>(
     },
     general: {
       type: Schema.Types.Boolean,
-      default: true,
+      default: false,
       select: false,
     },
     score: {
@@ -139,7 +139,7 @@ const schema = new Schema<Content>(
     },
     private: {
       type: Schema.Types.Boolean,
-      default: false,
+      default: true,
     },
     submit: {
       type: Schema.Types.Boolean,
