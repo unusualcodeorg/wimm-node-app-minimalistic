@@ -93,7 +93,7 @@ router.delete(
   }),
 );
 
-router.post(
+router.put(
   '/publish/general',
   validator(schema.contentId, ValidationSource.BODY),
   asyncHandler(async (req: ProtectedRequest, res) => {
