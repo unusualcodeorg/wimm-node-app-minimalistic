@@ -43,7 +43,7 @@ router.use('/subscription', subscription);
 router.use('/storage', storage);
 router.use('/profile', profile);
 router.use('/meta', metascrap);
-router.use('/files', files);
+router.use('/assets', files);
 router.use('/search', search);
 
 export default router;
