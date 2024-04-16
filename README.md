@@ -6,4 +6,4 @@ This is the minimalistic version of the Project `Modern Backend Development - Wh
 [Node.js Backend Architecture Typescript Project](https://github.com/janishar/nodejs-backend-architecture-typescript)
 
 ## Explore the Modern Backend Development - WhereIsMyMotivation
-[Modern Backend Development - WhereIsMyMotivation](https://github.com/janishar/wimm-node-app)
+[Modern Backend Development - WhereIsMyMotivation](https://github.com/unusualcodeorg/wimm-node-app)
